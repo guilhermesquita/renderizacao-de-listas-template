@@ -12,15 +12,23 @@ import bin from "../../assets/bin.png";
 
 export function ListaTarefas() {
   const [novaTarefa, setNovaTarefa] = useState("");
-
-
+  const [lista, setLista] = useState(['Ir pra aula', 'assistir Anime'])
+  //const lista = ['acasac', ' caasc', ' dsnj']
+  
   const onChangeTarefa = (event) => {
     setNovaTarefa(event.target.value);
   };
 
-  const adicionaTarefa = () => {};
+  const adicionaTarefa = () => {
+    const newLista = ([...lista, novaTarefa]);
+    setLista(newLista);
+    setNovaTarefa('')
+  };
 
-  const removeTarefa = () => {};
+  const removeTarefa = (tarefa) => {
+    const listraRemove = lista.filter((item) => item !== tarefa);
+    setLista(listraRemove)
+  };
 
   return (
     <ListaTarefasContainer>
@@ -30,17 +38,21 @@ export function ListaTarefas() {
           value={novaTarefa}
           onChange={onChangeTarefa}
         />
-        <AddTaskButton>Adicionar</AddTaskButton>
+        <AddTaskButton onClick={adicionaTarefa}>Adicionar</AddTaskButton>
       </InputContainer>
 
       <ListaContainer>
         <ul>
-          <Tarefa>
-            <p>Nova tarefa</p>
-            <RemoveButton>
-              <img src={bin} alt="" width="16px" />
-            </RemoveButton>
-          </Tarefa>
+          {lista.map((tarefa, index)=>{
+            return(
+              <Tarefa key={index}>
+                <p>{tarefa}</p>
+                <RemoveButton>
+                  <img src={bin} alt="" width="16px" onClick={() => removeTarefa(tarefa)}/>
+                </RemoveButton>
+              </Tarefa>
+        )
+          })}
         </ul>
       </ListaContainer>
     </ListaTarefasContainer>

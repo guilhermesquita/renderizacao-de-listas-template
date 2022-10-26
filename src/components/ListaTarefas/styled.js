@@ -52,6 +52,9 @@ export const RemoveButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export const Tarefa = styled.li`
